@@ -8,7 +8,7 @@ import (
 )
 
 func TestCipher(t *testing.T) {
-	buf, err := ioutil.ReadFile("testdata/sec.js")
+	buf, err := ioutil.ReadFile("../testdata/sec.js")
 	require.NoError(t, err)
 
 	script := bytesutil.String(buf)
