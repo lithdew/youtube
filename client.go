@@ -25,10 +25,11 @@ type Client struct {
 
 func NewClient() Client {
 	client := nicehttp.NewClient()
+	return WrapClient(&client)
+}
 
-	return Client{
-		Transport: &client,
-	}
+func WrapClient(transport Transport) Client {
+	return Client{Transport: transport}
 }
 
 func (c *Client) Load(id StreamID) (Player, error) {
