@@ -4,13 +4,13 @@ import (
 	"sort"
 )
 
-var AudioQuality = map[string]uint{
+var AudioQuality = map[string]int{
 	"AUDIO_QUALITY_LOW":    0,
 	"AUDIO_QUALITY_MEDIUM": 1,
 	"AUDIO_QUALITY_HIGH":   2,
 }
 
-var VideoQuality = map[string]uint{
+var VideoQuality = map[string]int{
 	"tiny":   0,
 	"low":    1,
 	"medium": 2,
@@ -101,7 +101,18 @@ func SortByAudioQuality(formats Formats) Formats {
 		if formats[i].Bitrate > formats[j].Bitrate {
 			return true
 		}
-		return AudioQuality[*formats[i].AudioQuality] > AudioQuality[*formats[j].AudioQuality]
+
+		a, b := 0, 0
+
+		if ap := formats[i].AudioQuality; ap != nil {
+			a = AudioQuality[*ap]
+		}
+
+		if bp := formats[j].AudioQuality; bp != nil {
+			b = AudioQuality[*bp]
+		}
+
+		return a > b
 	})
 
 	return formats
