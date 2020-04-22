@@ -14,7 +14,7 @@ As a result, this library in Go allows for you to retrieve direct links to video
 
 This library also exposes all of its methods for decoding encrypted direct links to media, and decoding/parsing both JSON and URL-encoded documents returned by YouTube.
 
-Many thanks to the library and blog posts from [Tyrrrz/YoutubeExplode](https://github.com/Tyrrzrz/YoutubeExplode) for giving me a good direction on how to get down-and-dirty tracing and decoding HTTP requests on YouTube.
+Many thanks to the library and blog posts from [Tyrrrz/YoutubeExplode](https://github.com/Tyrrrz/YoutubeExplode) for giving me a good direction on how to get down-and-dirty tracing and decoding HTTP requests on YouTube.
 
 ## Features
 
