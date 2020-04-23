@@ -50,15 +50,21 @@ func (c *Client) LoadDeadline(id StreamID, deadline time.Time) (Player, error) {
 		return player, err
 	}
 
+	// Attempt to grab the standard player first.
+
 	player, err = c.LoadWatchPlayerDeadline(id, deadline)
 	if err == nil {
 		return player, nil
 	}
 
+	// If it fails, attempt to grab the embedded player second.
+
 	player, err = c.LoadEmbedPlayerDeadline(id, deadline)
 	if err == nil {
 		return player, nil
 	}
+
+	// If all fails, throw an error :c.
 
 	return player, fmt.Errorf("failed to load player: %w", err)
 }

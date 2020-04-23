@@ -62,7 +62,7 @@ func main() {
 
 	stream, ok = player.SourceFormats().VideoOnly().BestVideo()
 	if !ok {
-		check(fmt.Errorf("no audio-only stream available"))
+		check(fmt.Errorf("no video-only stream available"))
 	}
 
 	videoOnlyFilename := "video." + stream.FileExtension()
@@ -76,7 +76,7 @@ func main() {
 
 	stream, ok = player.MuxedFormats().BestVideo()
 	if !ok {
-		check(fmt.Errorf("no audio-only stream available"))
+		check(fmt.Errorf("no muxed stream available"))
 	}
 
 	muxedFilename := "muxed." + stream.FileExtension()
