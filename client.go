@@ -69,15 +69,15 @@ func (c *Client) LoadDeadline(id StreamID, deadline time.Time) (Player, error) {
 	return player, fmt.Errorf("failed to load player: %w", err)
 }
 
-func (c *Client) LoadPlaylist(id string, page uint) (PlaylistResult, error) {
-	return c.LoadPlaylistDeadline(id, page, zeroTime)
+func (c *Client) LoadPlaylist(id string, offset uint) (PlaylistResult, error) {
+	return c.LoadPlaylistDeadline(id, offset, zeroTime)
 }
 
-func (c *Client) LoadPlaylistTimeout(id string, page uint, timeout time.Duration) (PlaylistResult, error) {
-	return c.LoadPlaylistDeadline(id, page, time.Now().Add(timeout))
+func (c *Client) LoadPlaylistTimeout(id string, offset uint, timeout time.Duration) (PlaylistResult, error) {
+	return c.LoadPlaylistDeadline(id, offset, time.Now().Add(timeout))
 }
 
-func (c *Client) LoadPlaylistDeadline(id string, page uint, deadline time.Time) (PlaylistResult, error) {
+func (c *Client) LoadPlaylistDeadline(id string, offset uint, deadline time.Time) (PlaylistResult, error) {
 	var result PlaylistResult
 
 	uri := []byte("https://www.youtube.com/list_ajax?style=json&action_get_list=1")
@@ -86,19 +86,19 @@ func (c *Client) LoadPlaylistDeadline(id string, page uint, deadline time.Time) 
 	uri = append(uri, id...)
 
 	uri = append(uri, "&index="...)
-	uri = fasthttp.AppendUint(uri, int(page))
+	uri = fasthttp.AppendUint(uri, int(offset))
 
 	uri = append(uri, "&hl="...)
 	uri = append(uri, "en"...)
 
 	buf, err := c.DownloadBytesDeadline(nil, bytesutil.String(uri), deadline)
 	if err != nil {
-		return result, fmt.Errorf("failed to load page %d of playlist %q: %w", page, id, err)
+		return result, fmt.Errorf("failed to load offset %d of playlist %q: %w", offset, id, err)
 	}
 
 	val, err := fastjson.ParseBytes(buf)
 	if err != nil {
-		return result, fmt.Errorf("got malformed json loading page %d of playlist %q: %w", page, id, err)
+		return result, fmt.Errorf("got malformed json loading offset %d of playlist %q: %w", offset, id, err)
 	}
 
 	return ParsePlaylistResultJSON(val), nil

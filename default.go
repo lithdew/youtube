@@ -19,16 +19,16 @@ func LoadDeadline(id StreamID, deadline time.Time) (Player, error) {
 	return defaultClient.LoadDeadline(id, deadline)
 }
 
-func LoadPlaylist(id string, page uint) (PlaylistResult, error) {
-	return defaultClient.LoadPlaylist(id, page)
+func LoadPlaylist(id string, offset uint) (PlaylistResult, error) {
+	return defaultClient.LoadPlaylist(id, offset)
 }
 
-func LoadPlaylistTimeout(id string, page uint, timeout time.Duration) (PlaylistResult, error) {
-	return defaultClient.LoadPlaylistTimeout(id, page, timeout)
+func LoadPlaylistTimeout(id string, offset uint, timeout time.Duration) (PlaylistResult, error) {
+	return defaultClient.LoadPlaylistTimeout(id, offset, timeout)
 }
 
-func LoadPlaylistDeadline(id string, page uint, deadline time.Time) (PlaylistResult, error) {
-	return defaultClient.LoadPlaylistDeadline(id, page, deadline)
+func LoadPlaylistDeadline(id string, offset uint, deadline time.Time) (PlaylistResult, error) {
+	return defaultClient.LoadPlaylistDeadline(id, offset, deadline)
 }
 
 func Search(query string, page uint) (SearchResult, error) {

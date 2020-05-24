@@ -21,7 +21,7 @@ func BenchmarkURLAppend(b *testing.B) {
 	b.ResetTimer()
 
 	id := "hello_world"
-	page := uint(12)
+	offset := uint(12)
 
 	for i := 0; i < b.N; i++ {
 		uri := []byte("https://www.youtube.com/list_ajax?style=json&action_get_list=1")
@@ -30,7 +30,7 @@ func BenchmarkURLAppend(b *testing.B) {
 		uri = append(uri, id...)
 
 		uri = append(uri, "&index="...)
-		uri = fasthttp.AppendUint(uri, int(page))
+		uri = fasthttp.AppendUint(uri, int(offset))
 
 		uri = append(uri, "&hl="...)
 		uri = append(uri, "en"...)
@@ -42,7 +42,7 @@ func BenchmarkURLValues(b *testing.B) {
 	b.ResetTimer()
 
 	id := "hello_world"
-	page := uint(12)
+	offset := uint(12)
 
 	for i := 0; i < b.N; i++ {
 		uri := []byte("https://www.youtube.com/list_ajax?")
@@ -52,7 +52,7 @@ func BenchmarkURLValues(b *testing.B) {
 				"style":           {"json"},
 				"action_get_list": {strconv.FormatUint(1, 10)},
 				"list":            {id},
-				"index":           {strconv.FormatUint(uint64(page), 10)},
+				"index":           {strconv.FormatUint(uint64(offset), 10)},
 				"hl":              {"en"},
 			}.Encode()...,
 		)
